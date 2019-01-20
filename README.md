@@ -1,1 +1,1 @@
-# iStyle
+# Stylify
