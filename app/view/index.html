@@ -147,11 +147,11 @@
         <div class="col-md-4 text-center">
           <input id='file-input' type='file' name='file' accept='image/*' onchange='showPicked(this)' style="display:none">
           <div class="info-right">
-            <img src="../static/image_data/test1.jpg" id='image-picked' alt='Chosen Image' height="400px">
+            <img src="../static/example.jpg" id='image-picked' alt='Chosen Image' height="400px">
             <br>
             <button class="btn btn-default btn-lg" id="pick-photo-button" onclick='showPicker()'>Choose Your Photo</button>
             <br>
-            <button class="btn btn-default btn-lg no-display" id="analyze-button" onclick='analyze()'>Analyze</button>
+            <button class="btn btn-default btn-lg no-display" id="analyze-button" onclick='detect()'>Analyze</button>
             <button class="btn btn-success btn-lg no-display" id="results-button" data-toggle="modal" data-target="#myModal" >View Results</button><br>
 <!-- 
           <img class="img-thumbnail" id="hiddeable" data-toggle="modal" data-target="#myModal"
@@ -163,7 +163,9 @@
           <h2>
             Detected Items: (Select one)
           </h2>
-          <img src="../static/image_data/test1.jpg" class="img-thumbnail">
+          <div id="results-diplay">
+              <img id="test-image" src="../static/example.jpg" class="img-thumbnail">
+          </div>
         </div>
         </div>
       </div>
