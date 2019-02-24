@@ -25,7 +25,7 @@ function detect() {
     
     var xhr = new XMLHttpRequest();
     var loc = window.location
-    xhr.open('POST', `${loc.protocol}//${loc.hostname}:${loc.port}/analyze`, true);
+    xhr.open('POST', `${loc.protocol}//${loc.hostname}:${loc.port}/detect`, true);
     xhr.onerror = function() { alert (xhr.responseText); }
     xhr.onload = function(e) {
         if (this.readyState === 4) {
@@ -36,11 +36,13 @@ function detect() {
                 res.src = e[0]
                 res.id = e[1]
                 res.class = "img-thumbnail"
-                res.style.width = 200
-                res.onclick = analyze(res)
+                res.width = "200"
+                res.onclick = function() {
+                    analyze(res)
+                }
                 el("results-diplay").appendChild(res)
               });
-            el("test-image").display = "none"
+            el("example-image").styles.display = "none"
         }
         // el('analyze-button').style.display = 'none';
     }
@@ -55,7 +57,7 @@ function analyze(pic) {
     el('analyze-button').innerHTML = "<i class='fa fa-spinner fa-spin '></i> Fetching Results";
     var xhr = new XMLHttpRequest();
     var loc = window.location
-    xhr.open('POST', `${loc.protocol}//${loc.hostname}:${loc.port}/detect`, true);
+    xhr.open('POST', `${loc.protocol}//${loc.hostname}:${loc.port}/analyze`, true);
     xhr.onerror = function() { alert (xhr.responseText); }
     xhr.onload = function(e) {
         if (this.readyState === 4) {
