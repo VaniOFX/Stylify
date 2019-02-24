@@ -1,12 +1,18 @@
 var el = x => document.getElementById(x);
 
-function showPicker(inputId) { el('file-input').click(); }
+function showPicker(inputId) {
+     el('file-input').click(); 
+     el('analyze-')
+    }
 
 function showPicked(input) {
     var reader = new FileReader();
     reader.onload = function (e) {
         el('image-picked').src = e.target.result;
+        el('results-button').style.display = "none";
         el('analyze-button').style.display = "inline-block";
+        el('analyze-button').innerHTML = "Analyze";
+
     }
     reader.readAsDataURL(input.files[0]);
 }
