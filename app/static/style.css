@@ -15,6 +15,10 @@ p{
   display: none;
 }
 
+.img-thumbnail{
+  width: 200px;
+}
+
 #pick-photo-button{
   margin-top: -75px;
   /* border: black 50px;
