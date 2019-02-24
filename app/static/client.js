@@ -72,7 +72,7 @@ function analyze(pic) {
         }
         el('analyze-button').innerHTML = 'Analyze';
     }
-    var json = {"chosen_image": pic.src.split("1997")[1], "chosen_cat": parseInt(pic.id)};
+    var json = {"chosen_image": ".."+pic.src.split("1997")[1], "chosen_cat": parseInt(pic.id)};
     xhr.send(JSON.stringify(json));
 
 }
