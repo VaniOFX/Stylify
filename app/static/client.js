@@ -42,7 +42,7 @@ function detect() {
                 }
                 el("results-diplay").appendChild(res)
               });
-            el("example-image").styles.display = "none"
+            el("example-image").style.display = "none"
         }
         // el('analyze-button').style.display = 'none';
     }
@@ -72,7 +72,7 @@ function analyze(pic) {
         }
         el('analyze-button').innerHTML = 'Analyze';
     }
-    var json = {"chosen_image": pic.src, "chosen_cat": parseInt(pic.id)};
+    var json = {"chosen_image": pic.src.split("1997")[1], "chosen_cat": parseInt(pic.id)};
     xhr.send(JSON.stringify(json));
 
 }
