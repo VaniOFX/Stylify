@@ -5,7 +5,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Stylify</title>
-  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700%7CRoboto%7CJosefin+Sans:100,300,400,500" rel="stylesheet" type="text/css">
+  <link
+    href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700%7CRoboto%7CJosefin+Sans:100,300,400,500"
+    rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="../static/style.css">
@@ -146,14 +148,16 @@
           </div>
         </div> -->
         <div class="col-md-4 text-center">
-          <input id='file-input' type='file' name='file' accept='image/*' onchange='showPicked(this)' style="display:none">
+          <input id='file-input' type='file' name='file' accept='image/*' onchange='showPicked(this)'
+            style="display:none">
           <div class="info-right">
             <img src="../static/example.jpg" class="img-thumbnail" id='image-picked' alt='Chosen Image'>
             <br>
-            <button class="btn btn-default btn-lg" id="pick-photo-button" onclick='showPicker()'>Choose Your Photo</button>
+            <button class="btn btn-default btn-lg" id="pick-photo-button" onclick='showPicker()'>Choose Your
+              Photo</button>
             <br>
             <button class="btn btn-default btn-lg no-display" id="analyze-button" onclick='detect()'>Analyze</button>
-<!-- 
+            <!-- 
           <img class="img-thumbnail" id="hiddeable" data-toggle="modal" data-target="#myModal"
             src="https://placeimg.com/200/133/nature/1"> -->
           </div>
@@ -161,18 +165,20 @@
         </div>
         <div class="col-md-8 text-center" id="results-display">
           <h2>
-            Detected Items:<br> 
-            <button class="btn btn-default btn-lg no-display" id="select-item-button" onclick='analyze()'>Select This</button>
-            <button class="btn btn-success btn-lg no-display" id="results-button" data-toggle="modal" data-target="#myModal" >View Results</button>
+            Detected Items:<br>
+            <button class="btn btn-default btn-lg no-display" id="select-item-button" onclick='analyze()'>Select
+              This</button>
+            <button class="btn btn-success btn-lg no-display" id="results-button" data-toggle="modal"
+              data-target="#myModal">View Results</button>
           </h2>
-	  <br>
+          <br>
           <select class="image-picker no-display" id="select-menu">
             <!-- Placeholder for detected items -->
           </select>
-          </div>
-        </div>
         </div>
       </div>
+    </div>
+    </div>
     </div>
     </div>
   </section>
@@ -231,103 +237,37 @@
     <p class="text-center">Stylify Copyright &copy; 2019</p>
   </footer>
 
-  <script src='../static/client.js'></script>
   <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+  <script src="https://code.jquery.com/jquery-3.2.1.js" 
+    integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
     crossorigin="anonymous"></script>
   <script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <script src="../static/image-picker.min.js"></script>
+  <script src='../static/client.js'></script>
+  <script src='../static/scroll-reveal-conf.js'></script>
+
+
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script> -->
   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
+  
   <script>
-
-//     $(document).ready(function () {
-//       $(".image-picker").imagepicker({
-//         selected:function(){
-//         console.log(this.val())}
-//     });
-// });
+    //     $(document).ready(function () {
+    //       $(".image-picker").imagepicker({
+    //         selected:function(){
+    //         console.log(this.val())}
+    //     });
+    // });
     // $(".image-picker").imagepicker({
     //     selected:function(){
     //     console.log(this.val())}
     // });
-
-    function showpicked(){
-        console.log($(".image-picker").data('picker').selected_values())
-    }
-
-    window.sr = ScrollReveal();
-    sr.reveal('.navbar', {
-      duration: 2000,
-      origin: 'bottom'
-    });
-    sr.reveal('.showcase-left', {
-      duration: 2000,
-      origin: 'top',
-      distance: '300px'
-    });
-    sr.reveal('.showcase-right', {
-      duration: 2000,
-      origin: 'right',
-      distance: '300px'
-    });
-    sr.reveal('.showcase-btn', {
-      duration: 2000,
-      delay: 2000,
-      origin: 'bottom'
-    });
-    sr.reveal('#testimonial div', {
-      duration: 2000,
-      origin: 'bottom'
-    });
-    sr.reveal('.info-left', {
-      duration: 2000,
-      origin: 'left',
-      distance: '300px',
-      viewFactor: 0.2
-    });
-    sr.reveal('.info-right', {
-      duration: 2000,
-      origin: 'right',
-      distance: '300px',
-      viewFactor: 0.2
-    });
-  </script>
-
-  <script>
-    // Smooth Scrolling
-    $(function () {
-      $('a[href*="#"]:not([href="#"])').click(function () {
-        if ($(this).attr("href") == "#myCarousel") return;
-        if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-          var target = $(this.hash);
-          target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-          if (target.length) {
-            $('html, body').animate({
-              scrollTop: target.offset().top
-            }, 1000);
-            return false;
-          }
-        }
-      });
-    });
-  </script>
-
-  <script>
-    function myFunction() {
-      var x = document.getElementById("hiddeable");
-      if (x.style.display === "none") {
-        x.style.display = "inline-block";
-      } else {
-        x.style.display = "none";
-      }
-    }
     autosize(document.getElementById("comments"));
   </script>
 
 </body>
-
 </html>
