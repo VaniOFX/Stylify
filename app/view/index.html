@@ -153,7 +153,6 @@
             <button class="btn btn-default btn-lg" id="pick-photo-button" onclick='showPicker()'>Choose Your Photo</button>
             <br>
             <button class="btn btn-default btn-lg no-display" id="analyze-button" onclick='detect()'>Analyze</button>
-            <button class="btn btn-success btn-lg no-display" id="results-button" data-toggle="modal" data-target="#myModal" >View Results</button><br>
 <!-- 
           <img class="img-thumbnail" id="hiddeable" data-toggle="modal" data-target="#myModal"
             src="https://placeimg.com/200/133/nature/1"> -->
@@ -162,11 +161,12 @@
         </div>
         <div class="col-md-8 text-center" id="results-display">
           <h2>
-            Detected Items: (Select one)
-            <button type="button" onclick="showpicked()">show picked</button>
+            Detected Items:<br> 
+            <button class="btn btn-default btn-lg no-display" id="select-item-button" onclick='analyze()'>Select This</button>
+            <button class="btn btn-success btn-lg no-display" id="results-button" data-toggle="modal" data-target="#myModal" >View Results</button>
           </h2>
 	  <br>
-          <select class="image-picker" id="select-menu">
+          <select class="image-picker no-display" id="select-menu">
             <!-- Placeholder for detected items -->
           </select>
           </div>
