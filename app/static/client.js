@@ -28,7 +28,6 @@ function generateOptions(){
         el("results-display").appendChild(res)
     })
     $("select").imagepicker();
-
 }
 
 function detect() {
@@ -53,20 +52,20 @@ function detect() {
                 res.value = e[1]
                 console.log(res)
                 el("results-display").appendChild(res)
-                res = document.createElement('img')
-                res.src = e[0]
-                res.id = e[1]
-                res.class = "img-thumbnail"
-                res.style.maxWidth = "150px"
-                res.style.margin = "10px"
-		res.style.borderRadius = "20px"
-                res.onclick = function() {
-                    analyze(res)
-                }
-                el("results-diplay").appendChild(res)
+                // res = document.createElement('img')
+                //res.src = e[0]
+                //res.id = e[1]
+                //res.class = "img-thumbnail"
+                //res.style.maxWidth = "150px"
+                //res.style.margin = "10px"
+		//res.style.borderRadius = "20px"
+                //res.onclick = function() {
+                //    analyze(res)
+                //}
+                //el("results-diplay").appendChild(res)
               });
             $("select").imagepicker();
-            el("example-image").style.display = "none"
+            //el("example-image").style.display = "none"
         }
         // el('analyze-button').style.display = 'none';
     }
