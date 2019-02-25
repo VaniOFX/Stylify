@@ -8,6 +8,8 @@ function showPicker(inputId) {
 function showPicked(input) {
     var reader = new FileReader();
     reader.onload = function (e) {
+        el('image-picked').style.maxWidth = "100%";
+        el('image-picked').style.maxHeight = "100%";
         el('image-picked').src = e.target.result;
         el('results-button').style.display = "none";
         el('analyze-button').style.display = "inline-block";
@@ -36,7 +38,8 @@ function detect() {
                 res.src = e[0]
                 res.id = e[1]
                 res.class = "img-thumbnail"
-                res.width = "200"
+                res.width = "150px"
+                res.margin = "10px"
                 res.onclick = function() {
                     analyze(res)
                 }
