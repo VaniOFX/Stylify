@@ -2,8 +2,7 @@ var el = x => document.getElementById(x);
 
 function showPicker(inputId) {
      el('file-input').click();
-     el('analyze-button').style.display = "none";
-    }
+}
 
 function showPicked(input) {
     var reader = new FileReader();
@@ -31,6 +30,7 @@ function detect() {
     xhr.onerror = function() { alert (xhr.responseText); }
     xhr.onload = function(e) {
         if (this.readyState === 4) {
+	    el('analyze-button').innerHTML = "Analyzed!";
             var response = JSON.parse(e.target.responseText);
             var zipped = zip(response["cropped_items"], response["categories"])
             zipped.forEach(function(e) {
@@ -38,8 +38,9 @@ function detect() {
                 res.src = e[0]
                 res.id = e[1]
                 res.class = "img-thumbnail"
-                res.width = "150px"
-                res.margin = "10px"
+                res.style.maxWidth = "150px"
+                res.style.margin = "10px"
+		res.style.borderRadius = "20px"
                 res.onclick = function() {
                     analyze(res)
                 }
