@@ -49,9 +49,10 @@ function detect() {
             zipped.forEach(function(e) {
                 res = document.createElement("option")
                 res.setAttribute("data-img-src", e[0])
+		res.setAttribute("data-img-class", "result-image")
                 res.value = e[1]
                 console.log(res)
-                el("results-display").appendChild(res)
+                el("select-menu").appendChild(res)
                 // res = document.createElement('img')
                 //res.src = e[0]
                 //res.id = e[1]
