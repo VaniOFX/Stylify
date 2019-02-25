@@ -16,9 +16,10 @@ p{
 }
 
 #image-picked{
-  max-width: 300;
+  max-width: 90%;
+  max-height: 90%;
   border-radius: 15px;
-
+  margin-top: 20px;
 }
 
 #centered{
@@ -26,48 +27,20 @@ p{
 }
 
 #pick-photo-button{
-  margin-top: -75px;
-  /* border: black 50px;
-  border: dashed; */
-}
-
-.with-margins{
-  margin: -70px;
+  margin-top: -30px;
+  margin-bottom: 10px;
 }
 
 #results-button{
-  margin-left: 70px;  
+  margin-left: 10px;  
 }
 
-#analyze-button{
-  margin: -70px;
-}
-
-#result-image{                                                                          │[I 15:21:58.732 NotebookApp] Saving file at /fastai/old/Stylify/app/notebooks/REST_controller.
-  max-width: 150px;                                                                            │ipynb
-  max-height: 350px;                                                                           │[I 15:21:58.826 NotebookApp] Saving file at /fastai/old/Stylify/app/notebooks/REST_controller.
-  border-radius: 20px;  
-}
-
-#results-display img{
+#result-image{
   max-width: 150px;
   max-height: 350px;
   border-radius: 20px;
-  /* border: dashed; */
-  /* border: red; */
-  /* margin-top: 200px; */
 }
 
-#image-picked{
-  border: 100px;
-  border-color: black;
-  border-radius: 15px;
-  /* margin-bottom: 25px; */
-  margin-bottom: 25px;
-  margin-top: 40px;
-
-  height: 100 px;
-}
 .navbar-default{
   background:#f1f1f1;
   border:0;
