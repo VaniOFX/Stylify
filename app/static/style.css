@@ -22,20 +22,21 @@ p{
   margin-top: 20px;
 }
 
-#centered{
-  justify-content: center;
-}
-
 #pick-photo-button{
   margin-top: -30px;
   margin-bottom: 10px;
 }
 
+#select-item-button{
+  margin-top: 10px;
+}
+
 #results-button{
+  margin-top: 10px;
   margin-left: 10px;  
 }
 
-#result-image{
+.result-image{
   max-width: 150px;
   max-height: 350px;
   border-radius: 20px;
