@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="../static/style.css">
+  <link rel="stylesheet" href="../static/image-picker.css">
 </head>
 
 <body>
@@ -163,8 +164,10 @@
           <h2>
             Detected Items: (Select one)
           </h2>
-          <div id="results-diplay">
-              <img id="example-image" src="../static/example.jpg" class="img-thumbnail">
+          <select class="image-picker" id="results-display">
+            <!-- Placeholder for detected items -->
+          </select>
+          <button type="button" onclick="showpicked()">show picked</button>
           </div>
         </div>
         </div>
@@ -235,9 +238,26 @@
     crossorigin="anonymous"></script>
   <script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="../static/image-picker.min.js"></script>
   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
   <script>
+
+//     $(document).ready(function () {
+//       $(".image-picker").imagepicker({
+//         selected:function(){
+//         console.log(this.val())}
+//     });
+// });
+    // $(".image-picker").imagepicker({
+    //     selected:function(){
+    //     console.log(this.val())}
+    // });
+
+    function showpicked(){
+        console.log($(".image-picker").data('picker').selected_values())
+    }
+
     window.sr = ScrollReveal();
     sr.reveal('.navbar', {
       duration: 2000,

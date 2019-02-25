@@ -17,6 +17,20 @@ function showPicked(input) {
     reader.readAsDataURL(input.files[0]);
 }
 
+function generateOptions(){
+    arr = ["http://placekitten.com/300/200", "../static/image_data/test2.jpg"]
+    cat = [4,5]
+    zip(arr,cat).forEach(function(e){
+        res = document.createElement("option")
+        res.setAttribute("data-img-src", e[0])
+        res.value = e[1]
+        console.log(res)
+        el("results-display").appendChild(res)
+    })
+    $("select").imagepicker();
+
+}
+
 function detect() {
     var uploadFiles = el('file-input').files;
     if (uploadFiles.length != 1){
@@ -34,6 +48,11 @@ function detect() {
             var response = JSON.parse(e.target.responseText);
             var zipped = zip(response["cropped_items"], response["categories"])
             zipped.forEach(function(e) {
+                res = document.createElement("option")
+                res.setAttribute("data-img-src", e[0])
+                res.value = e[1]
+                console.log(res)
+                el("results-display").appendChild(res)
                 res = document.createElement('img')
                 res.src = e[0]
                 res.id = e[1]
@@ -46,6 +65,7 @@ function detect() {
                 }
                 el("results-diplay").appendChild(res)
               });
+            $("select").imagepicker();
             el("example-image").style.display = "none"
         }
         // el('analyze-button').style.display = 'none';
