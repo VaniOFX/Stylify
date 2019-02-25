@@ -15,8 +15,16 @@ p{
   display: none;
 }
 
-.img-thumbnail{
+/* .img-thumbnail{
   width: 200px;
+} */
+
+/* #image-picked{
+  max-width: 300;
+} */
+
+#centered{
+  justify-content: center;
 }
 
 #pick-photo-button{
@@ -33,12 +41,18 @@ p{
   margin: -70px;
 }
 
+#results-diplay{
+  margin-top: 20px;
+}
+
 #image-picked{
   border: 100px;
   border-color: black;
   border-radius: 15px;
   /* margin-bottom: 25px; */
-  margin: 25px;
+  margin-bottom: 25px;
+  margin-top: 40px;
+
   height: 100 px;
 }
 .navbar-default{
