@@ -31,8 +31,12 @@ p{
   border: dashed; */
 }
 
-#results-button{
+.with-margins{
   margin: -70px;
+}
+
+#results-button{
+  margin-left: 70px;  
 }
 
 #analyze-button{

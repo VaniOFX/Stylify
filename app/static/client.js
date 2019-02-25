@@ -11,23 +11,16 @@ function showPicked(input) {
         el('image-picked').style.maxHeight = "100%";
         el('image-picked').src = e.target.result;
         el('results-button').style.display = "none";
+	el("select-item-button").style.display = "none";
         el('analyze-button').style.display = "inline-block";
         el('analyze-button').innerHTML = "Analyze";
+	el('analyze-button').disabled = false;
+	var results = el("select-menu");
+	while (results.firstChild) {     
+	     results.removeChild(results.firstChild);     
+      } 
     }
     reader.readAsDataURL(input.files[0]);
-}
-
-function generateOptions(){
-    arr = ["http://placekitten.com/300/200", "../static/image_data/test2.jpg"]
-    cat = [4,5]
-    zip(arr,cat).forEach(function(e){
-        res = document.createElement("option")
-        res.setAttribute("data-img-src", e[0])
-        res.value = e[1]
-        console.log(res)
-        el("results-display").appendChild(res)
-    })
-    $("select").imagepicker();
 }
 
 function detect() {
@@ -44,31 +37,20 @@ function detect() {
     xhr.onload = function(e) {
         if (this.readyState === 4) {
 	    el('analyze-button').innerHTML = "Analyzed!";
+	    el('analyze-button').disabled  =  true;
             var response = JSON.parse(e.target.responseText);
             var zipped = zip(response["cropped_items"], response["categories"])
             zipped.forEach(function(e) {
                 res = document.createElement("option")
                 res.setAttribute("data-img-src", e[0])
-		res.setAttribute("data-img-class", "result-image")
-                res.value = e[1]
+		res.setAttribute("data-img-class", "result-image img-responsive")
+                res.value = e[0]+":::"+e[1]
                 console.log(res)
                 el("select-menu").appendChild(res)
-                // res = document.createElement('img')
-                //res.src = e[0]
-                //res.id = e[1]
-                //res.class = "img-thumbnail"
-                //res.style.maxWidth = "150px"
-                //res.style.margin = "10px"
-		//res.style.borderRadius = "20px"
-                //res.onclick = function() {
-                //    analyze(res)
-                //}
-                //el("results-diplay").appendChild(res)
               });
             $("select").imagepicker();
-            //el("example-image").style.display = "none"
+	    el("select-item-button").style.display = "inline-block"
         }
-        // el('analyze-button').style.display = 'none';
     }
     var fileData = new FormData();
     fileData.append('file', uploadFiles[0]);
@@ -77,7 +59,10 @@ function detect() {
 
 }
 
-function analyze(pic) {
+function analyze() {
+    var value = $(".image-picker").data('picker').selected_values()
+    var tuple = value[0].split(":::")
+	console.log(tuple)
     el('analyze-button').innerHTML = "<i class='fa fa-spinner fa-spin '></i> Fetching Results";
     var xhr = new XMLHttpRequest();
     var loc = window.location
@@ -90,13 +75,13 @@ function analyze(pic) {
             el('results-button').style.display = "inline-block";
             var i;
             var results = response["results"];
-            for(i=0;i<=results.length;i++){
+            for(i=0;i<results.length;i++){
                 el("result"+i).src = results[i];
             }
         }
         el('analyze-button').innerHTML = 'Analyze';
     }
-    var json = {"chosen_image": ".."+pic.src.split("1997")[1], "chosen_cat": parseInt(pic.id)};
+    var json = {"chosen_image": tuple[0], "chosen_cat": parseInt(tuple[1])};
     xhr.send(JSON.stringify(json));
 
 }
