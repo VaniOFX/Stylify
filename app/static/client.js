@@ -1,8 +1,13 @@
 var el = x => document.getElementById(x);
+
 var setVisible = elementName => el(elementName).style.display = "inline-block";
+
 var setInvisible = elementName => el(elementName).style.display = "none";
+
 var displayErrorMessage = () => alert("Something Went Wrong. Please contact the support");
+
 var concatSign = ":::"
+
 var zip = (a, b) => {
     var arr = [];
     for (var key in a) arr.push([a[key], b[key]]);
@@ -30,6 +35,12 @@ function submitForm(){
     }
     json = {"name": name, "email":email, "comments":comments}
     xhr.send(JSON.stringify(json));
+
+function prepareRequest(endpoint){
+    var xhr = new XMLHttpRequest();
+    var loc = window.location;
+    xhr.open('POST', `${loc.protocol}//${loc.hostname}:${loc.port}/${endpoint}`, true);
+    return xhr
 }
 
 function showPicker(inputId) {
@@ -48,8 +59,8 @@ function showPicked(input) {
         setInvisible("results-button");
         setInvisible("select-item-button");
         removeAllChildren("select-menu");
-        $("select").imagepicker();
-  
+        $("select").imagepicker();  
+
         //Prepare the Analyze button
         setVisible("analyze-button");
         el('analyze-button').innerHTML = "Analyze";
@@ -65,9 +76,7 @@ function detect() {
         return;
     }
 
-    var xhr = new XMLHttpRequest();
-    var loc = window.location;
-    xhr.open('POST', `${loc.protocol}//${loc.hostname}:${loc.port}/detect`, true);
+    var xhr = prepareRequest(detect)
 
     //handle server errors
     xhr.onerror = function () { displayErrorMessage() }
@@ -102,9 +111,7 @@ function detect() {
 function analyze() {
     el('select-item-button').innerHTML = "<i class='fa fa-spinner fa-spin '></i> Fetching Results";
     el('select-item-button').disabled = true;
-    var xhr = new XMLHttpRequest();
-    var loc = window.location
-    xhr.open('POST', `${loc.protocol}//${loc.hostname}:${loc.port}/analyze`, true);
+    var xhr = prepareRequest(analyze)
     
     //handle server errors
     xhr.onerror = function () { displayErrorMessage() }
@@ -130,5 +137,4 @@ function analyze() {
     var tuple = $(".image-picker").data('picker').selected_values()[0].split(concatSign);
     var json = { "chosen_image": tuple[0], "chosen_cat": parseInt(tuple[1]) };
     xhr.send(JSON.stringify(json));
-
 }
