@@ -42,18 +42,14 @@
       <div class="row">
         <div class="col-md-6 col-sm-6">
           <div class="showcase-left">
-            <!-- <img class="center-block" src="../static/image_data/test3.jpg"> -->
+            <img id="front-photo" src="https://www.freeiconspng.com/uploads/artificial-intelligence-png-2.png">
           </div>
         </div>
         <div class="col-md-6 col-sm-6">
           <div class="showcase-right">
-            <h1>Hands-free help from the Google Assistant</h1>
-            <p>Google Home voice-activated speaker.consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-              labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-              aliquip ex ea commodo consequat</p>
+            <h1 >AI-powered <br> Outfit Recommendations</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
           </div>
-          <br>
-          <!-- <a class="btn btn-default btn-lg showcase-btn">Read More</a> -->
         </div>
       </div>
     </div>
@@ -148,8 +144,8 @@
           </div>
         </div> -->
         <div class="col-md-4 text-center">
-          <input id='file-input no-display' type='file' name='file' accept='image/*' onchange='showPicked(this)'>
-          <div class="info-right">
+          <input class="no-display" id='file-input' type='file' name='file' accept='image/*' onchange='showPicked(this)' style="display:none;">
+          <div class="info-left">
             <img src="../static/example.jpg" class="img-thumbnail" id='image-picked' alt='Chosen Image'>
             <br>
             <button class="btn btn-default btn-lg" id="pick-photo-button" onclick='showPicker()'>Choose Your Photo</button>
@@ -167,6 +163,12 @@
               data-target="#myModal">View Results</button>
           </h2>
           <br>
+            <div id="example-items">
+              <img src="../static/example-cropped1.jpg" class="result-image img-responsive" id="example-image">
+              <img src="../static/example-cropped2.jpg" class="result-image img-responsive" id="example-image">
+              <img src="../static/example-cropped3.jpg" class="result-image img-responsive" id="example-image">
+              <img src="../static/example-cropped4.jpg" class="result-image img-responsive" id="example-image">
+            </div>  
           <select class="image-picker no-display" id="select-menu">
             <!-- Placeholder for detected items -->
           </select>
