@@ -16,6 +16,22 @@ var removeAllChildren = (elementName) => {
     }
 }
 
+function submitForm(){
+    var name = el("form-name").value
+    var email = el("form-email").value
+    var comments = el("form-comments").value
+    var xhr = new XMLHttpRequest();
+    var loc = window.location;
+    xhr.open('POST', `${loc.protocol}//${loc.hostname}:${loc.port}/email`, true);
+    xhr.onload = function (e) {
+    	if(this.readyState == 4){
+	     setInvisible("feedback-form");
+	}
+    }
+    json = {"name": name, "email":email, "comments":comments}
+    xhr.send(JSON.stringify(json));
+}
+
 function showPicker(inputId) {
     el('file-input').click();
 }
@@ -32,7 +48,8 @@ function showPicked(input) {
         setInvisible("results-button");
         setInvisible("select-item-button");
         removeAllChildren("select-menu");
-
+        $("select").imagepicker();
+  
         //Prepare the Analyze button
         setVisible("analyze-button");
         el('analyze-button').innerHTML = "Analyze";
@@ -83,8 +100,8 @@ function detect() {
 }
 
 function analyze() {
-    el('analyze-button').innerHTML = "<i class='fa fa-spinner fa-spin '></i> Fetching Results";
-
+    el('select-item-button').innerHTML = "<i class='fa fa-spinner fa-spin '></i> Fetching Results";
+    el('select-item-button').disabled = true;
     var xhr = new XMLHttpRequest();
     var loc = window.location
     xhr.open('POST', `${loc.protocol}//${loc.hostname}:${loc.port}/analyze`, true);
@@ -106,7 +123,8 @@ function analyze() {
             for (i = 0; i < results.length; i++) {
                 el("result" + i).src = results[i];
             }
-            el('analyze-button').innerHTML = 'Analyze';
+            el('select-item-button').disabled = false;
+            el('select-item-button').innerHTML = "Select This";
         }
     }
     var tuple = $(".image-picker").data('picker').selected_values()[0].split(concatSign);
