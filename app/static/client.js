@@ -35,6 +35,7 @@ function submitForm(){
     }
     json = {"name": name, "email":email, "comments":comments}
     xhr.send(JSON.stringify(json));
+}
 
 function prepareRequest(endpoint){
     var xhr = new XMLHttpRequest();
@@ -56,6 +57,7 @@ function showPicked(input) {
         el('image-picked').setAttribute("class", "img-thumbnail image-picked");
 
         //discard previous results
+	setInvisible("example-items");
         setInvisible("results-button");
         setInvisible("select-item-button");
         removeAllChildren("select-menu");
@@ -76,8 +78,10 @@ function detect() {
         return;
     }
 
-    var xhr = prepareRequest(detect)
-
+    //var xhr = prepareRequest(detect)
+    var xhr = new XMLHttpRequest();
+    var loc = window.location;
+    xhr.open('POST', `${loc.protocol}//${loc.hostname}:${loc.port}/detect`, true);
     //handle server errors
     xhr.onerror = function () { displayErrorMessage() }
     //no errors
@@ -111,8 +115,10 @@ function detect() {
 function analyze() {
     el('select-item-button').innerHTML = "<i class='fa fa-spinner fa-spin '></i> Fetching Results";
     el('select-item-button').disabled = true;
-    var xhr = prepareRequest(analyze)
-    
+    //var xhr = prepareRequest(analyze)
+    var xhr = new XMLHttpRequest();
+    var loc = window.location;
+    xhr.open('POST', `${loc.protocol}//${loc.hostname}:${loc.port}/analyze`, true); 
     //handle server errors
     xhr.onerror = function () { displayErrorMessage() }
     //no errors
@@ -138,3 +144,4 @@ function analyze() {
     var json = { "chosen_image": tuple[0], "chosen_cat": parseInt(tuple[1]) };
     xhr.send(JSON.stringify(json));
 }
+

@@ -15,6 +15,11 @@ p{
   display: none;
 }
 
+#example-image{
+  display: inline-block;
+  margin: 20px;
+}
+
 #image-picked{
   max-width: 90%;
   max-height: 90%;
@@ -57,15 +62,13 @@ p{
 #showcase h1{
   font-size:50px;
   margin-bottom:20px;
-}
-
-#showcase img{
-  /* width:90%; */
-  margin-left:60px;
+  margin-top: 150px;
 }
 
 #showcase .showcase-right{
-  margin-top:90px;
+  text-align: center;
+  margin-top:50px;
+  margin-left: 30px;
 }
 
 #testimonial{
@@ -79,6 +82,10 @@ p{
   font-size:32px;
   font-family: 'Josefin Sans';
   color:#000;
+}
+
+#front-photo{
+  height: 500px;
 }
 
 #testimonial p.customer{
@@ -100,7 +107,7 @@ p{
 }
 
 #contact{
-  background:url(../static/background.jpg);
+  background:url(https://st2.depositphotos.com/3283585/10347/v/950/depositphotos_103471748-stock-illustration-vector-seamless-pattern-with-hand.jpg);
   padding:40px;
   /* color:#fff; */
   border-top:#333 7px solid;
@@ -109,9 +116,9 @@ p{
 
 #contact #contact-form{
   border-radius: 25px;
-  border: 1px unset;
+  border: grey 8px double;
   padding: 20px;
-  background: white
+  background: #afafaf
 }
 
 #contact #contact-form label{
