@@ -148,8 +148,7 @@
           </div>
         </div> -->
         <div class="col-md-4 text-center">
-          <input id='file-input' type='file' name='file' accept='image/*' onchange='showPicked(this)'
-            style="display:none">
+          <input id='file-input no-display' type='file' name='file' accept='image/*' onchange='showPicked(this)'>
           <div class="info-right">
             <img src="../static/example.jpg" class="img-thumbnail" id='image-picked' alt='Chosen Image'>
             <br>
@@ -216,8 +215,7 @@
               </div>
               <div class="form-group">
                 <label>Message: </label>
-                <textarea id="comments" class="form-control" name="" value="" placeholder="Enter Message"
-                  style="resize: vertical; height: auto;"></textarea>
+                <textarea id="form-comments" class="form-control" name="" value="" placeholder="Enter Message"></textarea>
               </div>
               <button class="btn btn-default">Submit</button>
             </form>
