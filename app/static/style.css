@@ -97,16 +97,20 @@ p{
   font-weight:bold;
 }
 
-#showcase h1{
+#home-view h1{
   font-size:50px;
   margin-bottom:20px;
   margin-top: 150px;
 }
 
-#showcase .showcase-right{
+#home-view .home-view-right{
   text-align: center;
   margin-top:50px;
   margin-left: 30px;
+}
+
+.modal-body{
+  padding: 0%;
 }
 
 #testimonial{
@@ -131,7 +135,7 @@ p{
   color:#666;
 }
 
-#info1 .info-right{
+#recommendations .div-right{
   margin-top:30px;
 }
 
@@ -147,7 +151,6 @@ p{
 #contact{
   background:url(https://st2.depositphotos.com/3283585/10347/v/950/depositphotos_103471748-stock-illustration-vector-seamless-pattern-with-hand.jpg);
   padding:40px;
-  /* color:#fff; */
   border-top:#333 7px solid;
   border-bottom:#333 7px solid;
 }
