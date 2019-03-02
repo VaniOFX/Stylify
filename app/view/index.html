@@ -143,22 +143,34 @@
             <img class="center-block" style="margin-top:10%;" src="../static/image_data/test3.jpg">
           </div>
         </div> -->
+        <div class="col-md-12">
+            <div id="pick-photo">
+                  <!-- &#8650; -->
+                  <br>
+                  <img id="arrow-img"
+                    src="https://www.onlygfx.com/wp-content/uploads/2016/04/hand-drawn-arrow-1-300x276.png">
+                  <!-- &#8627; -->
+                  <button class="btn btn-default btn-lg" id="pick-photo-button" onclick='showPicker()'>
+                    Choose Your Photo
+                  </button>
+                  <img id="arrow-img-flipped"
+                    src="https://www.onlygfx.com/wp-content/uploads/2016/04/hand-drawn-arrow-1-300x276.png">  
+              </div>
+        </div>
         <div class="col-md-4 text-center">
           <input class="no-display" id='file-input' type='file' name='file' accept='image/*' onchange='showPicked(this)' style="display:none;">
           <div class="info-left">
-            <img src="../static/example.jpg" class="img-thumbnail" id='image-picked' alt='Chosen Image'>
-            <br>
-            <button class="btn btn-default btn-lg" id="pick-photo-button" onclick='showPicker()'>Choose Your Photo</button>
-            <br>
-            <button class="btn btn-default btn-lg no-display" id="analyze-button" onclick='detect()'>Analyze</button>
+             <h2>
+              Selected Photo:
+            </h2>
+	    <img src="../static/example.jpg" class="img-thumbnail" id='image-picked' alt='Chosen Image'>
           </div>
 
         </div>
         <div class="col-md-8 float-left" id="results-display">
           <h2>
-            Detected Items:<br>
-            <button class="btn btn-default btn-lg no-display" id="select-item-button" onclick='analyze()'>Select
-              This</button>
+       	    Detected Clothing Items (Select One)<br>
+            <button class="btn btn-default btn-lg no-display" id="select-item-button" onclick='analyze()'>Select</button>
             <button class="btn btn-success btn-lg no-display" id="results-button" data-toggle="modal"
               data-target="#myModal">View Results</button>
           </h2>
@@ -206,7 +218,12 @@
       <div class="row">
         <div class="col-md-6">
           <div id="contact-form">
-            <form id="feedback-form">
+            <h1 class="no-display" id="feedback-thanks">Thanks for your feedback!</h1>
+	    <div id="feedback-form">
+	    <h3 style="margin-top: 10px">Please let us know what you think</h3>
+            <h5 style="margin-bottom: 25px">Or ask for details about the product</h5>	
+            <hr>
+	    <form>
               <div class="form-group">
                 <label>Name: </label>
                 <input id="form-name" class="form-control" type="text" name="" value="" placeholder="Enter Name">
@@ -221,6 +238,7 @@
               </div>
               <button class="btn btn-default" type="button" onclick="submitForm()">Submit</button>
             </form>
+	   </div>
           </div>
         </div>
         <div class="col-md-7 col-sm-7">

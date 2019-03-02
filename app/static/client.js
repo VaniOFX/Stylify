@@ -31,6 +31,7 @@ function submitForm(){
     xhr.onload = function (e) {
     	if(this.readyState == 4){
 	     setInvisible("feedback-form");
+	     setVisible("feedback-thanks");
 	}
     }
     json = {"name": name, "email":email, "comments":comments}
@@ -61,12 +62,13 @@ function showPicked(input) {
         setInvisible("results-button");
         setInvisible("select-item-button");
         removeAllChildren("select-menu");
-        $("select").imagepicker();  
-
+        $("select").imagepicker({show_label: true});  
+	
+	detect()
         //Prepare the Analyze button
-        setVisible("analyze-button");
-        el('analyze-button').innerHTML = "Analyze";
-        el('analyze-button').disabled = false;
+        //setVisible("analyze-button");
+        //el('analyze-button').innerHTML = "Analyze";
+        //el('analyze-button').disabled = false;
     }
     reader.readAsDataURL(input.files[0]);;
 }
@@ -88,8 +90,8 @@ function detect() {
     xhr.onload = function (e) {
         if (this.readyState === 4) {
             //Disable Analyze Button
-            el('analyze-button').innerHTML = "Analyzed!";
-            el('analyze-button').disabled = true;
+            //el('analyze-button').innerHTML = "Analyzed!";
+            //el('analyze-button').disabled = true;
 
             var response = JSON.parse(e.target.responseText);
             var zipped = zip(response["cropped_items"], response["categories"])
@@ -97,11 +99,14 @@ function detect() {
                 res = document.createElement("option")
                 res.setAttribute("data-img-src", e[0])
                 res.setAttribute("data-img-class", "result-image img-responsive")
+		res.setAttribute("data-img-label", `<h4 style=\"text-align:center\">${response["id2cat"][e[1]]}</h4>`)
                 res.value = e[0] + concatSign + e[1]
                 el("select-menu").appendChild(res)
             });
-            $("select").imagepicker();
+            $("select").imagepicker({show_label: true});
             setVisible("select-item-button")
+	    el('pick-photo-button').innerHTML = "Choose Your photo";
+	    el('pick-photo-button').disabled = false;
         }
     }
     var fileData = new FormData();
@@ -109,7 +114,8 @@ function detect() {
     xhr.send(fileData);
 
     //loading spinner in the button
-    el('analyze-button').innerHTML = "<i class='fa fa-spinner fa-spin '></i> Analyzing";
+    el('pick-photo-button').innerHTML = "<i class='fa fa-spinner fa-spin '></i> Analyzing";
+    el('pick-photo-button').disabled = true;
 }
 
 function analyze() {
@@ -126,7 +132,7 @@ function analyze() {
         if (this.readyState === 4) {
             
             //change the state of the buttons
-            setInvisible("analyze-button");
+            //setInvisible("analyze-button");
             setVisible("results-button");
 
             //display the results
@@ -137,7 +143,7 @@ function analyze() {
                 el("result" + i).src = results[i];
             }
             el('select-item-button').disabled = false;
-            el('select-item-button').innerHTML = "Select This";
+            el('select-item-button').innerHTML = "Select Another";
         }
     }
     var tuple = $(".image-picker").data('picker').selected_values()[0].split(concatSign);

@@ -15,6 +15,14 @@ p{
   display: none;
 }
 
+#feedback-thanks{
+ text-align: center;
+ background: white;
+ border-radius: 10px;
+ padding: 20px;
+ margin: 10px
+}
+
 #example-image{
   display: inline-block;
   margin: 20px;
@@ -27,9 +35,39 @@ p{
   margin-top: 20px;
 }
 
+#pick-photo{
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+#arrow-img{
+  width: 100px;
+}
+
+#arrow-img-flipped{
+  width: 100px;
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+}
+
 #pick-photo-button{
-  margin-top: -30px;
-  margin-bottom: 10px;
+  margin-top: 40px;
+  font-weight: bold;
+  font-size: 25px;
+  border-width: 5px;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.5s;
+  cursor: pointer;
+}
+
+#pick-photo-button:hover{
+  border-color: rgb(13, 110, 236);
+  background-color: rgb(13, 110, 236);
+  color: white;
 }
 
 #select-item-button{
