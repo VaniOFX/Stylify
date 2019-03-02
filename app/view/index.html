@@ -5,9 +5,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Stylify</title>
-  <link
+
+  <!-- Importing the Styling -->
+  <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700%7CRoboto%7CJosefin+Sans:100,300,400,500"
-    rel="stylesheet" type="text/css">
+    type="text/css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="../static/style.css">
@@ -15,9 +17,11 @@
 </head>
 
 <body>
+  <!-- Navigation Bar - fixed on top -->
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
+        <!-- Button for small devices -->
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
           aria-expanded="false" aria-controls="navbar">
           <span class="sr-only">Toggle navigation</span>
@@ -27,100 +31,93 @@
         </button>
         <a class="navbar-brand" href="#">Stylify</a>
       </div>
+      <!-- Items on the nav bar -->
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#showcase">Home</a></li>
-          <li><a href="#info1">About</a></li>
+          <li><a href="#home-view">Home</a></li>
+          <li><a href="#recommendations">About</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <section id="showcase">
+  <!-- Section #1 -->
+  <section id="home-view">
+    <!-- bootstrap container -->
     <div class="container">
       <div class="row">
-        <div class="col-md-6 col-sm-6">
-          <div class="showcase-left">
+        <!-- Taking 6/12 logical units on medium devices -->
+        <div class="col-md-6">
+          <div class="home-view-left">
             <img id="front-photo" src="https://www.freeiconspng.com/uploads/artificial-intelligence-png-2.png">
           </div>
         </div>
-        <div class="col-md-6 col-sm-6">
-          <div class="showcase-right">
-            <h1 >AI-powered <br> Outfit Recommendations</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <!-- Taking the rest of the logical units on medium devices -->
+        <div class="col-md-6">
+          <div class="home-view-right">
+            <h1>AI-powered <br> Outfit Recommendations</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Section #2 -->
   <section id="testimonial">
+    <!-- bootstrap container -->
     <div class="container">
-      <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+      <p>
+        "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
         magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ut labore et dolore magna aliqua. Ut enim ad
-        minim veniam, quis nostrud"</p>
+        minim veniam, quis nostrud"
+      </p>
       <p class="customer">- John Doe</p>
     </div>
   </section>
 
-
-
-  <!-- <a href="#myGallery" data-slide-to="0">Press here for Gallery</a> -->
-  </section>
   <!-- Modal Main -->
-  <div class="modal fade" tabindex="-1" id="myModal" role="dialog" aria-labelledby="myLargeModalLabel"
+  <div class="modal fade" tabindex="-1" id="result-modal" role="dialog" aria-labelledby="myLargeModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
 
-        <!-- <button type="button" class="close" style="position: relative; top: -10px; right: -10px;" data-dismiss="modal"
-          title="Close">
-          <span class="glyphicon glyphicon-remove"></span>
-        </button> -->
-
         <!-- Modal Body -->
-        <div class="modal-body" style="padding:0%">
+        <div class="modal-body">
 
           <!--Carousel Main-->
-          <div id="myGallery" class="carousel slide" data-interval="false">
-
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-              <li data-target="#myGallery" data-slide-to="0" class="active"></li>
-              <li data-target="#myGallery" data-slide-to="1"></li>
-              <li data-target="#myGallery" data-slide-to="2"></li>
-              <li data-target="#myGallery" data-slide-to="3"></li>
-            </ol>
+          <div id="result-gellery" class="carousel slide" data-interval="false">
 
             <!-- Carousel Inner -->
             <div class="carousel-inner">
 
               <!-- Carousel Items -->
               <div class="item active">
-                <img class="center-block" id="result0" alt="Search Result Placeholder 1">
+                <img class="center-block" id="result0" alt="Search Result Placeholder">
               </div>
 
               <div class="item">
-                <img class="center-block" id="result1" alt="Search Result Placeholder 2">
+                <img class="center-block" id="result1" alt="Search Result Placeholder">
               </div>
 
               <div class="item">
-                <img class="center-block" id="result2" alt="Search Result Placeholder 3">
+                <img class="center-block" id="result2" alt="Search Result Placeholder">
               </div>
 
               <div class="item">
-                <img class="center-block" id="result3" alt="Search Result Placeholder 4">
+                <img class="center-block" id="result3" alt="Search Result Placeholder">
               </div>
 
               <!--end carousel-inner-->
             </div>
 
             <!--Next and Previous buttons-->
-            <a class="left carousel-control" href="#myGallery" data-slide="prev">
+            <a class="left carousel-control" href="#result-gellery" data-slide="prev">
               <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
-            <a class="right carousel-control" href="#myGallery" data-slide="next">
+            <a class="right carousel-control" href="#result-gellery" data-slide="next">
               <span class="glyphicon glyphicon-chevron-right"></span>
             </a>
 
@@ -132,78 +129,92 @@
       </div>
       <!--end modal dialoge-->
     </div>
-    <!--end myModal-->
+    <!--end result-modal-->
   </div>
 
-  <section id="info1">
+  <!-- Section #3 -->
+  <section id="recommendations">
+    <!-- bootstrap container -->
     <div class="container">
       <div class="row">
-        <!-- <div class="col-md-6 col-sm-6">
-          <div class="info-left">
-            <img class="center-block" style="margin-top:10%;" src="../static/image_data/test3.jpg">
-          </div>
-        </div> -->
-        <div class="col-md-12">
-            <div id="pick-photo">
-                  <!-- &#8650; -->
-                  <br>
-                  <img id="arrow-img"
-                    src="https://www.onlygfx.com/wp-content/uploads/2016/04/hand-drawn-arrow-1-300x276.png">
-                  <!-- &#8627; -->
-                  <button class="btn btn-default btn-lg" id="pick-photo-button" onclick='showPicker()'>
-                    Choose Your Photo
-                  </button>
-                  <img id="arrow-img-flipped"
-                    src="https://www.onlygfx.com/wp-content/uploads/2016/04/hand-drawn-arrow-1-300x276.png">  
-              </div>
+        <!-- Taking all the 12 units of the screen -->
+        <div class="col-md-12" id="pick-photo">
+          <img id="arrow-img" src="https://www.onlygfx.com/wp-content/uploads/2016/04/hand-drawn-arrow-1-300x276.png">
+          <!-- Button to display the image picker -->
+          <button class="btn btn-default btn-lg" id="pick-photo-button" onclick="showPicker()">
+            Choose Your Photo
+          </button>
+          <img id="arrow-img-flipped"
+            src="https://www.onlygfx.com/wp-content/uploads/2016/04/hand-drawn-arrow-1-300x276.png">
         </div>
+
+        <!-- Div taking 4/12 logical units to display the selected photo -->
         <div class="col-md-4 text-center">
-          <input class="no-display" id='file-input' type='file' name='file' accept='image/*' onchange='showPicked(this)' style="display:none;">
-          <div class="info-left">
-             <h2>
+          <!-- Hidden input element for the image file -->
+          <input class="no-display" id="file-input" type="file" name="file" accept="image/*"
+            onchange="showPicked(this)">
+          <!-- Animated div displaying an example image -->
+          <div class="div-left">
+            <h2>
               Selected Photo:
             </h2>
-	    <img src="../static/example.jpg" class="img-thumbnail" id='image-picked' alt='Chosen Image'>
+            <img src="../static/example.jpg" class="img-thumbnail" id="image-picked" alt="Chosen Image">
           </div>
-
         </div>
+
+        <!-- Div taking the rest 8/12 logical units that displays the detected clothes -->
         <div class="col-md-8 float-left" id="results-display">
           <h2>
-       	    Detected Clothing Items (Select One)<br>
-            <button class="btn btn-default btn-lg no-display" id="select-item-button" onclick='analyze()'>Select</button>
+            Detected Clothing Items (Select One)
+            <br>
+            <!-- Select button to send the image for analysis -->
+            <button class="btn btn-default btn-lg no-display" id="select-item-button" onclick="analyze()">
+              Select
+            </button>
+            <!-- Display results button -->
             <button class="btn btn-success btn-lg no-display" id="results-button" data-toggle="modal"
-              data-target="#myModal">View Results</button>
+              data-target="#result-modal">
+              View Results
+            </button>
           </h2>
           <br>
-            <div id="example-items">
-              <img src="../static/example-cropped1.jpg" class="result-image img-responsive" id="example-image">
-              <img src="../static/example-cropped2.jpg" class="result-image img-responsive" id="example-image">
-              <img src="../static/example-cropped3.jpg" class="result-image img-responsive" id="example-image">
-              <img src="../static/example-cropped4.jpg" class="result-image img-responsive" id="example-image">
-            </div>  
+
+          <!-- Example cropped clothing items -->
+          <div id="example-items">
+            <img src="../static/example-cropped1.jpg" class="result-image img-responsive" id="example-image">
+            <img src="../static/example-cropped2.jpg" class="result-image img-responsive" id="example-image">
+            <img src="../static/example-cropped3.jpg" class="result-image img-responsive" id="example-image">
+            <img src="../static/example-cropped4.jpg" class="result-image img-responsive" id="example-image">
+          </div>
+
+          <!-- Select for the image picker plugin -->
           <select class="image-picker no-display" id="select-menu">
-            <!-- Placeholder for detected items -->
+            <!-- Placeholder for detected items, to be filled dynamically -->
           </select>
         </div>
       </div>
     </div>
-    </div>
-    </div>
-    </div>
   </section>
+
   <hr>
+
+  <!-- Section #4 -->
   <section id="info2">
+    <!-- bootstrap container -->
     <div class="container">
       <div class="row">
-        <div class="col-md-6 col-sm-6">
-          <div class="info-left">
+        <!-- Div taking half the screen on small devices and larger -->
+        <div class="col-sm-6">
+          <div class="div-left">
             <h2>Info Block One</h2>
             <p>Adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
               veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
           </div>
         </div>
-        <div class="col-md-6 col-sm-6">
-          <div class="info-right">
+
+        <!-- Div taking the other half of the screen on small devices and larger -->
+        <div class="col-sm-6">
+          <div class="div-right">
             <h2>Info Block Two</h2>
             <p>Adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
               veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
@@ -213,75 +224,57 @@
     </div>
   </section>
 
+  <!-- Section #5 -->
   <section id="contact">
+    <!-- bootstrap container -->
     <div class="container">
       <div class="row">
-        <div class="col-md-6">
-          <div id="contact-form">
-            <h1 class="no-display" id="feedback-thanks">Thanks for your feedback!</h1>
-	    <div id="feedback-form">
-	    <h3 style="margin-top: 10px">Please let us know what you think</h3>
-            <h5 style="margin-bottom: 25px">Or ask for details about the product</h5>	
+        <!-- Div taking half the screen on medium devices and larger -->
+        <div class="col-md-6" id="contact-form">
+          <!-- Hidden thankful message -->
+          <h1 class="no-display" id="feedback-thanks">Thanks for your feedback!</h1>
+          <!-- The feedback form div -->
+          <div id="feedback-form">
+            <h3 style="margin-top: 10px">Please let us know what you think</h3>
+            <h5 style="margin-bottom: 25px">Or ask for details about the product</h5>
             <hr>
-	    <form>
+            <!-- Feedback form -->
+            <form>
               <div class="form-group">
                 <label>Name: </label>
                 <input id="form-name" class="form-control" type="text" name="" value="" placeholder="Enter Name">
               </div>
               <div class="form-group">
                 <label>Email: </label>
-                <input id="form-email" class="form-control" type="text" name="" value="" placeholder="Enter Email">
+                <input id="form-email" class="form-control" type="email" name="" value="" placeholder="Enter Email">
               </div>
               <div class="form-group">
                 <label>Message: </label>
-                <textarea id="form-comments" class="form-control" name="" value="" placeholder="Enter Message"></textarea>
+                <textarea id="form-comments" class="form-control" name="" value=""
+                  placeholder="Enter Message"></textarea>
               </div>
               <button class="btn btn-default" type="button" onclick="submitForm()">Submit</button>
             </form>
-	   </div>
           </div>
-        </div>
-        <div class="col-md-7 col-sm-7">
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Footer Copyright -->
   <footer>
     <p class="text-center">Stylify Copyright &copy; 2019</p>
   </footer>
 
+  <!-- Importing the scripts -->
   <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.2.1.js" 
-    integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
     crossorigin="anonymous"></script>
   <script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <script src="../static/image-picker.min.js"></script>
-  <script src='../static/client.js'></script>
-  <script src='../static/scroll-reveal-conf.js'></script>
-
-
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script> -->
-  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
-  
-  <script>
-    //     $(document).ready(function () {
-    //       $(".image-picker").imagepicker({
-    //         selected:function(){
-    //         console.log(this.val())}
-    //     });
-    // });
-    // $(".image-picker").imagepicker({
-    //     selected:function(){
-    //     console.log(this.val())}
-    // });
-    autosize(document.getElementById("form-comments"));
-  </script>
-
+  <script src="../static/client.js"></script>
+  <script src="../static/scroll-reveal-conf.js"></script>
 </body>
+
 </html>
