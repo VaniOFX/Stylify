@@ -6,3 +6,4 @@ app/collections
 app/static/tmp
 app/static/image_data
 app/indexes
+app/recommender
