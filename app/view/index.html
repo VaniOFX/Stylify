@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="../static/style.css">
   <link rel="stylesheet" href="../static/image-picker.css">
+  <link rel="image_src" href="https://www.freeiconspng.com/uploads/artificial-intelligenlligence-png-2.png">
+
 </head>
 
 <body>
@@ -151,14 +153,14 @@
         <!-- Div taking 4/12 logical units to display the selected photo -->
         <div class="col-md-4 text-center">
           <!-- Hidden input element for the image file -->
-          <input class="no-display" id="file-input" type="file" name="file" accept="image/*"
+          <input class="no-display" id="file-input" type="file" name="file" accept="image/*" style="display:none;"
             onchange="showPicked(this)">
           <!-- Animated div displaying an example image -->
           <div class="div-left">
             <h2>
               Selected Photo:
             </h2>
-            <img src="../static/example.jpg" class="img-thumbnail" id="image-picked" alt="Chosen Image">
+            <img src="../static/assets/example.jpg" class="img-thumbnail" id="image-picked" alt="Chosen Image">
           </div>
         </div>
 
@@ -181,10 +183,10 @@
 
           <!-- Example cropped clothing items -->
           <div id="example-items">
-            <img src="../static/example-cropped1.jpg" class="result-image img-responsive" id="example-image">
-            <img src="../static/example-cropped2.jpg" class="result-image img-responsive" id="example-image">
-            <img src="../static/example-cropped3.jpg" class="result-image img-responsive" id="example-image">
-            <img src="../static/example-cropped4.jpg" class="result-image img-responsive" id="example-image">
+            <img src="../static/assets/example-cropped1.jpg" class="result-image img-responsive" id="example-image">
+            <img src="../static/assets/example-cropped2.jpg" class="result-image img-responsive" id="example-image">
+            <img src="../static/assets/example-cropped3.jpg" class="result-image img-responsive" id="example-image">
+            <img src="../static/assets/example-cropped4.jpg" class="result-image img-responsive" id="example-image">
           </div>
 
           <!-- Select for the image picker plugin -->
