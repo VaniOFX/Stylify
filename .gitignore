@@ -1,3 +1,8 @@
-app/notebooks/.ipynb_checkpoints/*
+**/.ipynb_checkpoints
+**/__pycache__
 data/*
 *.invalid
+app/collections
+app/static/tmp
+app/static/image_data
+app/indexes
