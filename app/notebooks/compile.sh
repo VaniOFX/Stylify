@@ -1,8 +1,8 @@
- #!/bin/bash
+#!/bin/bash
 
-for file in *.ipynb
+for FILE in *.ipynb
 do 
-	jupyter nbconvert --to script  "${file}"
+	jupyter nbconvert --to script  "${FILE}"
 done
 
 rm  ../recommender/*

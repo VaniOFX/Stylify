@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,15 +6,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Stylify</title>
-
+  <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
   <!-- Importing the Styling -->
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700%7CRoboto%7CJosefin+Sans:100,300,400,500"
     type="text/css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../static/style.css">
-  <link rel="stylesheet" href="../static/image-picker.css">
+  <link rel="stylesheet" href="../static/assets/css/index-style.css">
+  <link rel="stylesheet" href="../static/assets/css/image-picker.css">
   <link rel="image_src" href="https://www.freeiconspng.com/uploads/artificial-intelligenlligence-png-2.png">
 
 </head>
@@ -37,7 +39,7 @@
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#home-view">Home</a></li>
-          <li><a href="#recommendations">About</a></li>
+	  <li><a href="#recommendations">Upload an image</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
@@ -93,9 +95,9 @@
           <div id="result-gellery" class="carousel slide" data-interval="false">
 
             <!-- Carousel Inner -->
-            <div class="carousel-inner">
+            <div class="carousel-inner" id="result-items">
 
-              <!-- Carousel Items -->
+              <!-- Carousel Items 
               <div class="item active">
                 <img class="center-block" id="result0" alt="Search Result Placeholder">
               </div>
@@ -110,8 +112,8 @@
 
               <div class="item">
                 <img class="center-block" id="result3" alt="Search Result Placeholder">
-              </div>
-
+              </div> 
+              -->
               <!--end carousel-inner-->
             </div>
 
@@ -153,8 +155,7 @@
         <!-- Div taking 4/12 logical units to display the selected photo -->
         <div class="col-md-4 text-center">
           <!-- Hidden input element for the image file -->
-          <input class="no-display" id="file-input" type="file" name="file" accept="image/*" style="display:none;"
-            onchange="showPicked(this)">
+          <input id="file-input" type="file" name="file" accept="image/*" onchange="showPicked(this)">
           <!-- Animated div displaying an example image -->
           <div class="div-left">
             <h2>
@@ -166,18 +167,20 @@
 
         <!-- Div taking the rest 8/12 logical units that displays the detected clothes -->
         <div class="col-md-8 float-left" id="results-display">
-          <h2>
+          <h2 class="centered">
             Detected Clothing Items (Select One)
             <br>
-            <!-- Select button to send the image for analysis -->
+            <!-- Select button to send the image for analysis
             <button class="btn btn-default btn-lg no-display" id="select-item-button" onclick="analyze()">
               Select
             </button>
-            <!-- Display results button -->
+	    -->
+            <!-- Display results button 
             <button class="btn btn-success btn-lg no-display" id="results-button" data-toggle="modal"
               data-target="#result-modal">
               View Results
             </button>
+	    -->
           </h2>
           <br>
 
@@ -193,6 +196,12 @@
           <select class="image-picker no-display" id="select-menu">
             <!-- Placeholder for detected items, to be filled dynamically -->
           </select>
+
+	  <br>
+	  <!-- Select button to send the image for analysis -->
+            <button class="btn btn-default btn-lg no-display" id="select-item-button" onclick="analyze()">
+              Select 
+            </button>                                                       
         </div>
       </div>
     </div>
@@ -208,18 +217,16 @@
         <!-- Div taking half the screen on small devices and larger -->
         <div class="col-sm-6">
           <div class="div-left">
-            <h2>Info Block One</h2>
-            <p>Adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-              veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
+            <h2>Interesting Fact</h2>
+            <p id="fact1">In 1907, a woman was arrested on a beach in Boston for wearing a one-piece swimsuit</p>
           </div>
         </div>
 
         <!-- Div taking the other half of the screen on small devices and larger -->
         <div class="col-sm-6">
           <div class="div-right">
-            <h2>Info Block Two</h2>
-            <p>Adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-              veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
+            <h2>...Another one</h2>
+            <p id="fact2">The famous Lacoste symbol was created in 1933, and was the first designer logo ever.</p>
           </div>
         </div>
       </div>
@@ -241,21 +248,21 @@
             <h5 style="margin-bottom: 25px">Or ask for details about the product</h5>
             <hr>
             <!-- Feedback form -->
-            <form>
+            <form onsubmit="submitForm(); return false">
               <div class="form-group">
                 <label>Name: </label>
-                <input id="form-name" class="form-control" type="text" name="" value="" placeholder="Enter Name">
+                <input id="form-name" class="form-control" type="text" name="" value="" placeholder="Enter Name" required>
               </div>
               <div class="form-group">
                 <label>Email: </label>
-                <input id="form-email" class="form-control" type="email" name="" value="" placeholder="Enter Email">
+                <input id="form-email" class="form-control" type="email" name="" value="" placeholder="Enter Email" required>
               </div>
               <div class="form-group">
                 <label>Message: </label>
                 <textarea id="form-comments" class="form-control" name="" value=""
-                  placeholder="Enter Message"></textarea>
+                  placeholder="Enter Message" required></textarea>
               </div>
-              <button class="btn btn-default" type="button" onclick="submitForm()">Submit</button>
+              <button class="btn btn-default" type="submit">Submit</button>
             </form>
           </div>
         </div>
@@ -274,9 +281,10 @@
     crossorigin="anonymous"></script>
   <script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  <script src="../static/image-picker.min.js"></script>
-  <script src="../static/client.js"></script>
-  <script src="../static/scroll-reveal-conf.js"></script>
+  <script src="../static/assets/js/image-picker.min.js"></script>
+  <script src="../static/assets/js/client.js"></script>
+  <script src="../static/assets/js/scroll-reveal-conf.js"></script> 
+  <script src="../static/assets/js/generate-facts.js"></script>
 </body>
 
 </html>
