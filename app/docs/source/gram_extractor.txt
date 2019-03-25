@@ -1,0 +1,7 @@
+gram\_extractor module
+======================
+
+.. automodule:: gram_extractor
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>REST_controller &mdash; Stylify 0.9 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Stylify
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">recommender</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Stylify</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>REST_controller</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for REST_controller</h1><div class="highlight"><pre>
+<span></span>
+<span class="c1"># coding: utf-8</span>
+
+<span class="c1"># # Creator: Ivan Bardarov &lt;br&gt; (University of Strathclyde, March 2019)</span>
+<span class="c1"># ## This module sets up the server and creates REST endpoints</span>
+<span class="c1"># </span>
+
+<span class="c1"># In[ ]:</span>
+
+
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="kn">from</span> <span class="nn">starlette.applications</span> <span class="k">import</span> <span class="n">Starlette</span>
+<span class="kn">from</span> <span class="nn">starlette.responses</span> <span class="k">import</span> <span class="n">HTMLResponse</span><span class="p">,</span> <span class="n">JSONResponse</span>
+<span class="kn">from</span> <span class="nn">starlette.staticfiles</span> <span class="k">import</span> <span class="n">StaticFiles</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../recommender/&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">starlette.middleware.cors</span> <span class="k">import</span> <span class="n">CORSMiddleware</span>
+<span class="kn">import</span> <span class="nn">uvicorn</span><span class="o">,</span> <span class="nn">aiohttp</span><span class="o">,</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="k">import</span> <span class="n">BytesIO</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">cloth_detector</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">style_recommender</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">email_agent</span> <span class="k">as</span> <span class="nn">ea</span>
+
+<span class="c1"># application init</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Starlette</span><span class="p">()</span>
+<span class="n">app</span><span class="o">.</span><span class="n">add_middleware</span><span class="p">(</span><span class="n">CORSMiddleware</span><span class="p">,</span> <span class="n">allow_origins</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">],</span> <span class="n">allow_headers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;X-Requested-With&#39;</span><span class="p">,</span> <span class="s1">&#39;Content-Type&#39;</span><span class="p">])</span>
+
+<span class="c1"># expose the files in these folders to be allowed for acess</span>
+<span class="n">app</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;/static&#39;</span><span class="p">,</span> <span class="n">StaticFiles</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="s1">&#39;../static&#39;</span><span class="p">))</span>
+<span class="n">app</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;/static&#39;</span><span class="p">,</span> <span class="n">StaticFiles</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="s1">&#39;../static/image_data&#39;</span><span class="p">))</span>
+<span class="n">app</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;/static&#39;</span><span class="p">,</span> <span class="n">StaticFiles</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="s1">&#39;../static/tmp&#39;</span><span class="p">))</span>
+<span class="n">app</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;/static&#39;</span><span class="p">,</span> <span class="n">StaticFiles</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="s1">&#39;../static/assets&#39;</span><span class="p">))</span>
+
+<span class="c1"># define JSON keys</span>
+<span class="n">ORIGINAL</span> <span class="o">=</span> <span class="s2">&quot;original_image&quot;</span>
+<span class="n">CROPPED</span> <span class="o">=</span> <span class="s2">&quot;cropped_items&quot;</span>
+<span class="n">CATS</span> <span class="o">=</span> <span class="s2">&quot;categories&quot;</span>
+<span class="n">CHOSEN_IMAGE</span> <span class="o">=</span> <span class="s2">&quot;chosen_image&quot;</span>
+<span class="n">CHOSEN_CAT</span> <span class="o">=</span> <span class="s2">&quot;chosen_cat&quot;</span>
+<span class="n">ID2CAT</span> <span class="o">=</span> <span class="s2">&quot;id2cat&quot;</span>
+
+<div class="viewcode-block" id="index"><a class="viewcode-back" href="../REST_controller.html#REST_controller.index">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An index API which returns the main webapge.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    request : Request</span>
+<span class="sd">        the received request</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    HTMLResponse</span>
+<span class="sd">        the requested html file</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">html</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;../view/index.html&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">HTMLResponse</span><span class="p">(</span><span class="n">html</span><span class="o">.</span><span class="n">open</span><span class="p">()</span><span class="o">.</span><span class="n">read</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="send_email"><a class="viewcode-back" href="../REST_controller.html#REST_controller.send_email">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/email&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">send_email</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function handles POST request sent to /email.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    request : Request</span>
+<span class="sd">        the received request</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    JSONResponse</span>
+<span class="sd">        Empty JSON response to finish handling the request</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">json</span> <span class="o">=</span> <span class="k">await</span> <span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="c1">#pass the request along</span>
+    <span class="k">await</span> <span class="n">ea</span><span class="o">.</span><span class="n">send_email</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span> <span class="n">json</span><span class="p">[</span><span class="s2">&quot;email&quot;</span><span class="p">],</span> <span class="n">json</span><span class="p">[</span><span class="s2">&quot;comments&quot;</span><span class="p">])</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Email sending took : {end-start:.2f} seconds&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">JSONResponse</span><span class="p">({})</span></div>
+
+
+<div class="viewcode-block" id="analyze"><a class="viewcode-back" href="../REST_controller.html#REST_controller.analyze">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/analyze&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">analyze</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function handles POST request sent to /analyze.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    request : Request</span>
+<span class="sd">        the received request</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    JSONResponse</span>
+<span class="sd">        a json object with the results array</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">request_json</span> <span class="o">=</span> <span class="k">await</span> <span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="c1">#pass the request along</span>
+    <span class="n">results_arr</span> <span class="o">=</span> <span class="n">get_recommendations</span><span class="p">(</span><span class="n">request_json</span><span class="p">[</span><span class="n">CHOSEN_IMAGE</span><span class="p">],</span> <span class="n">request_json</span><span class="p">[</span><span class="n">CHOSEN_CAT</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">results_arr</span><span class="p">)</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;The recommendations algorithm took : {end-start:.2f} seconds&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">JSONResponse</span><span class="p">({</span><span class="s2">&quot;results&quot;</span><span class="p">:</span><span class="n">results_arr</span><span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="detect"><a class="viewcode-back" href="../REST_controller.html#REST_controller.detect">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/detect&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">detect</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function handles POST request sent to /detect.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    request : Request</span>
+<span class="sd">        the received request</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    JSONResponse</span>
+<span class="sd">        an array of result image paths</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">()</span>
+    <span class="c1">#read the file</span>
+    <span class="n">img_bytes</span> <span class="o">=</span> <span class="k">await</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="c1">#pass the request along</span>
+    <span class="n">i_fns</span><span class="p">,</span> <span class="n">cat_list</span><span class="p">,</span> <span class="n">id2cat</span> <span class="o">=</span> <span class="n">get_detected_items</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">img_bytes</span><span class="p">)))</span>
+    <span class="c1">#construct the JSON response</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="p">{</span><span class="n">CROPPED</span><span class="p">:</span> <span class="n">i_fns</span><span class="p">,</span>
+                <span class="n">CATS</span><span class="p">:</span> <span class="n">cat_list</span><span class="p">,</span>
+                <span class="n">ID2CAT</span><span class="p">:</span> <span class="n">id2cat</span><span class="p">}</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;The detecting algorithm took : {end-start:.2f} seconds&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">JSONResponse</span><span class="p">(</span><span class="n">response</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Application init took : {end-start:.2f} seconds&quot;</span><span class="p">)</span>
+    <span class="n">uvicorn</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">app</span><span class="o">=</span><span class="n">app</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">1997</span><span class="p">)</span>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Ivan Bardarov
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

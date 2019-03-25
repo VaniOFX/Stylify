@@ -1,0 +1,7 @@
+style\_recommender module
+=========================
+
+.. automodule:: style_recommender
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,290 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gram_extractor &mdash; Stylify 0.9 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Stylify
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">recommender</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Stylify</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>gram_extractor</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gram_extractor</h1><div class="highlight"><pre>
+<span></span>
+<span class="c1"># coding: utf-8</span>
+
+<span class="c1"># # Creator: Ivan Bardarov &lt;br&gt; (University of Strathclyde, March 2019)</span>
+<span class="c1"># ## This module extracts the gram matrix from an input photo</span>
+
+<span class="c1"># In[1]:</span>
+
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../../../&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">fastai.imports</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">fastai.dataset</span> <span class="k">import</span> <span class="o">*</span>
+
+<div class="viewcode-block" id="SaveFeatures"><a class="viewcode-back" href="../gram_extractor.html#gram_extractor.SaveFeatures">[docs]</a><span class="k">class</span> <span class="nc">SaveFeatures</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Registers a hook to a nn.Module and saves the activations in a variable</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    features : ndarray</span>
+<span class="sd">        The activations from the layer</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    hook_fn(module, input, output)</span>
+<span class="sd">        The callback function that is registered</span>
+<span class="sd">    close()</span>
+<span class="sd">        Remove the hook</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">features</span><span class="o">=</span><span class="kc">None</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">hook</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">register_forward_hook</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hook_fn</span><span class="p">)</span>
+<div class="viewcode-block" id="SaveFeatures.hook_fn"><a class="viewcode-back" href="../gram_extractor.html#gram_extractor.SaveFeatures.hook_fn">[docs]</a>    <span class="k">def</span> <span class="nf">hook_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">features</span> <span class="o">=</span> <span class="n">output</span></div>
+<div class="viewcode-block" id="SaveFeatures.close"><a class="viewcode-back" href="../gram_extractor.html#gram_extractor.SaveFeatures.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">hook</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span></div></div>
+
+<div class="viewcode-block" id="gram"><a class="viewcode-back" href="../gram_extractor.html#gram_extractor.gram">[docs]</a><span class="k">def</span> <span class="nf">gram</span><span class="p">(</span><span class="nb">input</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the gram matrix from a multidimensional array</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    input : float.Tensor</span>
+<span class="sd">        The activations </span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float.Tensor</span>
+<span class="sd">        the gram matrix</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">h</span><span class="p">,</span><span class="n">w</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">b</span><span class="o">*</span><span class="n">c</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">t</span><span class="p">())</span><span class="o">/</span><span class="nb">input</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span><span class="o">*</span><span class="mf">1e6</span></div>
+
+<div class="viewcode-block" id="get_gram"><a class="viewcode-back" href="../gram_extractor.html#gram_extractor.get_gram">[docs]</a><span class="k">def</span> <span class="nf">get_gram</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Processes an image and returns the gram matrix for it</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : str, Path</span>
+<span class="sd">        The path to the input iamge</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ndarray</span>
+<span class="sd">        the gram matrix</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">open_image</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">img_tfms</span> <span class="o">=</span> <span class="n">val_tfms</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+    <span class="n">m_vgg</span><span class="p">(</span><span class="n">VV</span><span class="p">(</span><span class="n">img_tfms</span><span class="p">[</span><span class="kc">None</span><span class="p">]))</span>
+    <span class="n">img_act</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">to_np</span><span class="p">(</span><span class="n">gram</span><span class="p">(</span><span class="n">img_act</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span></div>
+
+<span class="c1"># Setup the pretrained model</span>
+<span class="n">m_vgg</span> <span class="o">=</span> <span class="n">to_gpu</span><span class="p">(</span><span class="n">vgg16</span><span class="p">(</span><span class="kc">True</span><span class="p">))</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+<span class="n">set_trainable</span><span class="p">(</span><span class="n">m_vgg</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">sz</span><span class="o">=</span><span class="mi">288</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">val_tfms</span> <span class="o">=</span> <span class="n">tfms_from_model</span><span class="p">(</span><span class="n">vgg16</span><span class="p">,</span> <span class="n">sz</span><span class="p">)</span>
+
+<span class="n">blocks</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">o</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">children</span><span class="p">(</span><span class="n">m_vgg</span><span class="p">))</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">)]</span>
+<span class="n">act</span> <span class="o">=</span> <span class="n">SaveFeatures</span><span class="p">(</span><span class="n">children</span><span class="p">(</span><span class="n">m_vgg</span><span class="p">)[</span><span class="n">blocks</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+
+
+<span class="c1"># In[5]:</span>
+
+
+<span class="nb">type</span><span class="p">(</span><span class="n">children</span><span class="p">(</span><span class="n">m_vgg</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+
+<span class="c1"># In[10]:</span>
+
+
+<span class="n">blocks</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">o</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">m_vgg</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">)]</span>
+
+
+<span class="c1"># In[11]:</span>
+
+
+<span class="n">blocks</span>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Ivan Bardarov
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

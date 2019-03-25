@@ -1,0 +1,7 @@
+email\_agent module
+===================
+
+.. automodule:: email_agent
+    :members:
+    :undoc-members:
+    :show-inheritance:

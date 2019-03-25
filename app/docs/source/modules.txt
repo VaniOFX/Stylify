@@ -1,0 +1,15 @@
+recommender
+===========
+
+.. toctree::
+   :maxdepth: 4
+
+
+   KNN_indexer
+   REST_controller
+   background_remover
+   cloth_detector
+   email_agent
+   gram_extractor
+   item_collector
+   style_recommender

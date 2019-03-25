@@ -1,0 +1,7 @@
+cloth\_detector module
+======================
+
+.. automodule:: cloth_detector
+    :members:
+    :undoc-members:
+    :show-inheritance:

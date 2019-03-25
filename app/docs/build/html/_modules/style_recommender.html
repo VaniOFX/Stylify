@@ -1,0 +1,328 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>style_recommender &mdash; Stylify 0.9 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Stylify
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">recommender</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Stylify</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>style_recommender</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for style_recommender</h1><div class="highlight"><pre>
+<span></span>
+<span class="c1"># coding: utf-8</span>
+
+<span class="c1"># # Creator: Ivan Bardarov &lt;br&gt; (University of Strathclyde, March 2019)</span>
+<span class="c1"># ## This is the mediator module which combines clothing detection, item collection,gram extraction, indexing and background removal</span>
+
+<span class="c1"># In[1]:</span>
+
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../recommender/&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">background_remover</span> <span class="k">as</span> <span class="nn">br</span>
+<span class="kn">from</span> <span class="nn">cloth_detector</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">KNN_indexer</span> <span class="k">as</span> <span class="nn">indexer</span>
+<span class="kn">import</span> <span class="nn">gram_extractor</span> <span class="k">as</span> <span class="nn">ge</span>
+<span class="kn">import</span> <span class="nn">item_collector</span> <span class="k">as</span> <span class="nn">ic</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="k">import</span> <span class="n">BytesIO</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">exists</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">remove</span><span class="p">,</span> <span class="n">makedirs</span>
+<span class="kn">from</span> <span class="nn">shutil</span> <span class="k">import</span> <span class="n">move</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+
+<span class="c1"># # module setup</span>
+<span class="c1"># image_path_temp = Path(&quot;../static/tmp&quot;)</span>
+<span class="c1"># os.makedirs(image_path_temp, exist_ok=True)</span>
+<span class="c1"># learner, id2cat, cat2id = load_learner()</span>
+<span class="c1"># index_dict = {}</span>
+
+<span class="c1"># # create an dictionary with the all the existing index objects for faster retrieval</span>
+<span class="c1"># for cat in cat2id.values():</span>
+<span class="c1">#     grams_fn = ic.get_grams_filename(cat)</span>
+<span class="c1">#     if exists(grams_fn):</span>
+<span class="c1">#         data = ic.get_grams_collection(cat)</span>
+<span class="c1">#         index_dict[cat] = indexer.get_index(cat, data)</span>
+
+        
+<div class="viewcode-block" id="get_unique_filename"><a class="viewcode-back" href="../style_recommender.html#style_recommender.get_unique_filename">[docs]</a><span class="k">def</span> <span class="nf">get_unique_filename</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get a unique file name for storing temporary images</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        the path to the file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">f</span><span class="s2">&quot;</span><span class="si">{image_path_temp}</span><span class="s2">/{uuid.uuid4()}.jpg&quot;</span></div>
+
+<div class="viewcode-block" id="scale_bbox"><a class="viewcode-back" href="../style_recommender.html#style_recommender.scale_bbox">[docs]</a><span class="k">def</span> <span class="nf">scale_bbox</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fixes the coordinates order and scales it according to the original size</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    bbox : ndarray</span>
+<span class="sd">        array with the relative bbox coordinates</span>
+<span class="sd">    res : (int,int)</span>
+<span class="sd">        the width and length of the original image</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ndarray</span>
+<span class="sd">        array with the scaled coordinates</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">res</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">h</span><span class="p">,</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">w</span><span class="p">,</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">*</span><span class="n">h</span><span class="p">,</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">w</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="get_recommendations"><a class="viewcode-back" href="../style_recommender.html#style_recommender.get_recommendations">[docs]</a><span class="k">def</span> <span class="nf">get_recommendations</span><span class="p">(</span><span class="n">img_fn</span><span class="p">,</span> <span class="n">cat</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets the top most similar items from the collection</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    img_fn : str</span>
+<span class="sd">        the filename of the chosen image</span>
+<span class="sd">    cat : int</span>
+<span class="sd">        the id of the chosen category</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ndarray</span>
+<span class="sd">        array with top results</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">index_dict</span><span class="p">:</span>
+        <span class="c1">#remove the background and get the gram matrix</span>
+        <span class="n">br</span><span class="o">.</span><span class="n">remove_background</span><span class="p">(</span><span class="n">img_fn</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">img_fn</span><span class="p">)</span>
+        <span class="n">features_vector</span> <span class="o">=</span> <span class="n">ge</span><span class="o">.</span><span class="n">get_gram</span><span class="p">(</span><span class="n">img_fn</span><span class="p">)</span>
+        
+        <span class="c1">#get the most similar items</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="n">indexer</span><span class="o">.</span><span class="n">get_knn</span><span class="p">(</span><span class="n">index_dict</span><span class="p">[</span><span class="n">cat</span><span class="p">],</span> <span class="n">features_vector</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">4</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        
+        <span class="c1">#get the filenames of the items to be returned</span>
+        <span class="n">ar</span> <span class="o">=</span> <span class="n">ic</span><span class="o">.</span><span class="n">get_filenames_collection</span><span class="p">(</span><span class="n">cat</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ar</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        
+    <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="get_detected_items"><a class="viewcode-back" href="../style_recommender.html#style_recommender.get_detected_items">[docs]</a><span class="k">def</span> <span class="nf">get_detected_items</span><span class="p">(</span><span class="n">img</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Hit the detection model to get all the clothes on an input photo</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    img : Image</span>
+<span class="sd">        the input image for the object detection model</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    i_fns: ndarray</span>
+<span class="sd">        array with the filenames of the detected items</span>
+<span class="sd">    cat_list: ndarray</span>
+<span class="sd">        array with the categories of the detected items</span>
+<span class="sd">    id2cat: ndarray</span>
+<span class="sd">        a list with all the names of all the categories</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># save the received image</span>
+    <span class="n">org_fn</span> <span class="o">=</span> <span class="n">get_unique_filename</span><span class="p">()</span>
+    <span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">org_fn</span><span class="p">)</span>
+
+    <span class="n">i_fns</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cat_list</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="c1">#make a prediction on the image</span>
+    <span class="n">bboxes</span><span class="p">,</span> <span class="n">cats</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">predict_fn</span><span class="p">(</span><span class="n">learner</span><span class="p">,</span> <span class="n">org_fn</span><span class="p">)</span>
+    
+    <span class="c1">#handle the results</span>
+    <span class="k">for</span> <span class="n">cat</span><span class="p">,</span> <span class="n">bbox</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cats</span><span class="p">,</span><span class="n">bboxes</span><span class="p">):</span>
+        <span class="c1"># save and crop each of the detected items</span>
+        <span class="n">i_fn</span> <span class="o">=</span> <span class="n">get_unique_filename</span><span class="p">()</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">scale_bbox</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="n">img</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+        <span class="n">img</span><span class="o">.</span><span class="n">crop</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">bbox</span><span class="p">))</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">i_fn</span><span class="p">)</span>
+        
+        <span class="c1">#add to the results to be returned</span>
+        <span class="n">i_fns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i_fn</span><span class="p">)</span>
+        <span class="n">cat_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cat</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">i_fns</span><span class="p">,</span> <span class="n">cat_list</span><span class="p">,</span> <span class="n">id2cat</span></div>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Ivan Bardarov
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

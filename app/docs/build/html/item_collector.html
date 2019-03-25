@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>item_collector module &mdash; Stylify 0.9 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="style_recommender module" href="style_recommender.html" />
+    <link rel="prev" title="gram_extractor module" href="gram_extractor.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Stylify
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">recommender</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="KNN_indexer.html">KNN_indexer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="REST_controller.html">REST_controller module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="background_remover.html">background_remover module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloth_detector.html">cloth_detector module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="email_agent.html">email_agent module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gram_extractor.html">gram_extractor module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">item_collector module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="style_recommender.html">style_recommender module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Stylify</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">recommender</a> &raquo;</li>
+        
+      <li>item_collector module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/item_collector.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-item_collector">
+<span id="item-collector-module"></span><h1>item_collector module<a class="headerlink" href="#module-item_collector" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="item_collector.get_and_append">
+<code class="descclassname">item_collector.</code><code class="descname">get_and_append</code><span class="sig-paren">(</span><em>arr</em>, <em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/item_collector.html#get_and_append"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#item_collector.get_and_append" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function which loads a stored collection and extends it</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>arr</strong> (<em>list</em>) – The list with gram matrices to be added</li>
+<li><strong>filename</strong> (<em>str</em>) – The name of the file with the collection to be extended</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="item_collector.get_filenames_collection">
+<code class="descclassname">item_collector.</code><code class="descname">get_filenames_collection</code><span class="sig-paren">(</span><em>cat</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/item_collector.html#get_filenames_collection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#item_collector.get_filenames_collection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the the filenames collection from the file system</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cat</strong> (<em>int</em>) – The id of the category for which we want to retrive the collection</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An array with the filenames collection</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">ndarray</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="item_collector.get_files_filename">
+<code class="descclassname">item_collector.</code><code class="descname">get_files_filename</code><span class="sig-paren">(</span><em>cat</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/item_collector.html#get_files_filename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#item_collector.get_files_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the name of the collection file for the file names</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cat</strong> (<em>int</em>) – The id of the category for which we want to retrive the collection</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the path to the collection</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="item_collector.get_files_from_path">
+<code class="descclassname">item_collector.</code><code class="descname">get_files_from_path</code><span class="sig-paren">(</span><em>image_path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/item_collector.html#get_files_from_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#item_collector.get_files_from_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function which only keeps the files in a folder</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>image_path</strong> (<em>Path</em>) – The path to the folder with images</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The paths of the files in the specified folder</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="item_collector.get_grams_collection">
+<code class="descclassname">item_collector.</code><code class="descname">get_grams_collection</code><span class="sig-paren">(</span><em>cat</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/item_collector.html#get_grams_collection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#item_collector.get_grams_collection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the the grams collection from the file system</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cat</strong> (<em>int</em>) – The id of the category for which we want to retrive the collection</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An array with the gram matrices collection</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">ndarray</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="item_collector.get_grams_filename">
+<code class="descclassname">item_collector.</code><code class="descname">get_grams_filename</code><span class="sig-paren">(</span><em>cat</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/item_collector.html#get_grams_filename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#item_collector.get_grams_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the name of the collection file for the gram matrices</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cat</strong> (<em>int</em>) – The id of the category for which we want to retrive the collection</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the path to the collection</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="style_recommender.html" class="btn btn-neutral float-right" title="style_recommender module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="gram_extractor.html" class="btn btn-neutral float-left" title="gram_extractor module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Ivan Bardarov
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

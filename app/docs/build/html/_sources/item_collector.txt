@@ -1,0 +1,7 @@
+item\_collector module
+======================
+
+.. automodule:: item_collector
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,7 @@
+KNN\_indexer module
+===================
+
+.. automodule:: KNN_indexer
+    :members:
+    :undoc-members:
+    :show-inheritance:

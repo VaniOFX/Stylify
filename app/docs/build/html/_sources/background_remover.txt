@@ -1,0 +1,7 @@
+background\_remover module
+==========================
+
+.. automodule:: background_remover
+    :members:
+    :undoc-members:
+    :show-inheritance:
