@@ -29,7 +29,7 @@ var zip = (a, b) => {
 // Cleaning the child elements from a DOM element
 var removeAllChildren = (elementName) => {
     var results = el(elementName);
-    if (results.hasChildNodes()){
+    if (results.hasChildNodes()) {
         while (results.firstChild) {
             results.removeChild(results.firstChild);
         }
@@ -90,7 +90,7 @@ function detect() {
             //Parse the reseponse a a JSON object
             var response = JSON.parse(e.target.responseText);
             var zipped_array = zip(response["cropped_items"], response["categories"]);
-            if (zipped_array.length > 0){
+            if (zipped_array.length > 0) {
                 zipped_array.forEach(function (e) {
                     // For each pair creaate an element and add it to the DOM
                     res = document.createElement("option");
@@ -106,7 +106,7 @@ function detect() {
                 $("select").imagepicker({ show_label: true });
                 setVisible("select-item-button");
             }
-            else{
+            else {
                 alert("Please upload a photo with clothes on it!");
             }
         }
@@ -148,12 +148,12 @@ function analyze() {
             var i;
             var results = response["results"];
             console.log(results)
-            if (results.length > 0){
+            if (results.length > 0) {
                 removeAllChildren("result-items");
                 for (i = 0; i < results.length; i++) {
                     res = document.createElement("img");
                     cl = "center-block result-item item"
-                    if(i == 0){ cl += " active"}
+                    if (i == 0) { cl += " active" }
                     res.setAttribute("class", cl);
                     res.setAttribute("src", results[i]);
                     console.log(res);
@@ -162,18 +162,20 @@ function analyze() {
                 el('select-item-button').disabled = false;
                 el('select-item-button').innerHTML = "Select Another";
                 $("#result-modal").modal();
-            }else{
+            } else {
                 alert("I am sorry I have no recommendations for this type of clothing yet.\n Please contact support.");
                 el('select-item-button').disabled = false;
                 el('select-item-button').innerHTML = "Select";
             }
-        }            
+        }
     }
     // Parse the data from the value attribute from the selected image
     var tuple = $(".image-picker").data('picker').selected_values()[0].split(concatSign);
     // Create an object with it and send the request
-    var json = {"chosen_image": tuple[0],
-                "chosen_cat": parseInt(tuple[1])};
+    var json = {
+        "chosen_image": tuple[0],
+        "chosen_cat": parseInt(tuple[1])
+    };
     xhr.send(asJson(json));
 }
 

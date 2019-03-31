@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,7 +38,7 @@
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#home-view">Home</a></li>
-	  <li><a href="#recommendations">Upload an image</a></li>
+          <li><a href="#recommendations">Upload an image</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
@@ -61,8 +60,8 @@
         <div class="col-md-6">
           <div class="home-view-right">
             <h1>AI-powered <br> Outfit Recommendations</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua.</p>
+            <p>Welcome to 21st century! Please meet the tool that uses latest technologies to let you find the best
+              match for your clothes</p>
           </div>
         </div>
       </div>
@@ -74,11 +73,10 @@
     <!-- bootstrap container -->
     <div class="container">
       <p>
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ut labore et dolore magna aliqua. Ut enim ad
-        minim veniam, quis nostrud"
+        Awesome application! I have used it so many times and I am still surprised how good it is. All my friends think
+        it is amazing. <br> So COOL!
       </p>
-      <p class="customer">- John Doe</p>
+      <p class="customer">- Michael Scott</p>
     </div>
   </section>
 
@@ -97,23 +95,6 @@
             <!-- Carousel Inner -->
             <div class="carousel-inner" id="result-items">
 
-              <!-- Carousel Items 
-              <div class="item active">
-                <img class="center-block" id="result0" alt="Search Result Placeholder">
-              </div>
-
-              <div class="item">
-                <img class="center-block" id="result1" alt="Search Result Placeholder">
-              </div>
-
-              <div class="item">
-                <img class="center-block" id="result2" alt="Search Result Placeholder">
-              </div>
-
-              <div class="item">
-                <img class="center-block" id="result3" alt="Search Result Placeholder">
-              </div> 
-              -->
               <!--end carousel-inner-->
             </div>
 
@@ -170,17 +151,6 @@
           <h2 class="centered">
             Detected Clothing Items (Select One)
             <br>
-            <!-- Select button to send the image for analysis
-            <button class="btn btn-default btn-lg no-display" id="select-item-button" onclick="analyze()">
-              Select
-            </button>
-	    -->
-            <!-- Display results button 
-            <button class="btn btn-success btn-lg no-display" id="results-button" data-toggle="modal"
-              data-target="#result-modal">
-              View Results
-            </button>
-	    -->
           </h2>
           <br>
 
@@ -197,11 +167,11 @@
             <!-- Placeholder for detected items, to be filled dynamically -->
           </select>
 
-	  <br>
-	  <!-- Select button to send the image for analysis -->
-            <button class="btn btn-default btn-lg no-display" id="select-item-button" onclick="analyze()">
-              Select 
-            </button>                                                       
+          <br>
+          <!-- Select button to send the image for analysis -->
+          <button class="btn btn-default btn-lg no-display" id="select-item-button" onclick="analyze()">
+            Select
+          </button>
         </div>
       </div>
     </div>
@@ -251,16 +221,18 @@
             <form onsubmit="submitForm(); return false">
               <div class="form-group">
                 <label>Name: </label>
-                <input id="form-name" class="form-control" type="text" name="" value="" placeholder="Enter Name" required>
+                <input id="form-name" class="form-control" type="text" name="" value="" placeholder="Enter Name"
+                  required>
               </div>
               <div class="form-group">
                 <label>Email: </label>
-                <input id="form-email" class="form-control" type="email" name="" value="" placeholder="Enter Email" required>
+                <input id="form-email" class="form-control" type="email" name="" value="" placeholder="Enter Email"
+                  required>
               </div>
               <div class="form-group">
                 <label>Message: </label>
-                <textarea id="form-comments" class="form-control" name="" value=""
-                  placeholder="Enter Message" required></textarea>
+                <textarea id="form-comments" class="form-control" name="" value="" placeholder="Enter Message"
+                  required></textarea>
               </div>
               <button class="btn btn-default" type="submit">Submit</button>
             </form>
@@ -283,7 +255,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <script src="../static/assets/js/image-picker.min.js"></script>
   <script src="../static/assets/js/client.js"></script>
-  <script src="../static/assets/js/scroll-reveal-conf.js"></script> 
+  <script src="../static/assets/js/scroll-reveal-conf.js"></script>
   <script src="../static/assets/js/generate-facts.js"></script>
 </body>
 
